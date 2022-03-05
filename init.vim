@@ -1,14 +1,23 @@
+" Select your Leader key
+let mapleader = "\<Space>"
+
 if exists('g:vscode')
   " VSCode Extensions: A lot of things do not make sense to enable in vscode like syntax highlighters, fzf, and nerdtree
+  " https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim 
+  function! VSFzfSearch()
+      " todo: Limit to normal mode only
+      call VSCodeCall('fzf-quick-open.runFzfFile')
+  endfunction
+
+  " <leader>o should open fzf for all files
+  nnoremap <leader>o <Cmd>call VSFzfSearch()<CR>
+
 else 
   let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
   if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   endif
-
-  " Select your Leader key
-  let mapleader = "\<Space>"
 
   "------------------------------------------------------------
   " Plugins 

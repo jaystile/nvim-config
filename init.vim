@@ -5,7 +5,6 @@ if exists('g:vscode')
   " VSCode Extensions: A lot of things do not make sense to enable in vscode like syntax highlighters, fzf, and nerdtree
   " https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim 
   function! VSFzfSearch()
-      " todo: Limit to normal mode only
       call VSCodeCall('fzf-quick-open.runFzfFile')
   endfunction
 

@@ -26,6 +26,10 @@ else
   Plug 'sheerun/vimrc'
   Plug 'sheerun/vim-polyglot'
 
+  " Undo sheerun settings
+  " I don't like the mouse to change my cursor position when I click from application to application
+  set mouse=""
+
   " Termdebug - for debugging rust
   let termdebugger="rust-gdb"
   " Open the debugger split vertically instead of horizontally
@@ -119,7 +123,7 @@ else
   " run :echo has('clipboard') to see if you have it
 
   " Yank all unnamed into the system buffer
-  " set clipboard=unnamedplus
+  set clipboard=unnamedplus
 
   " Stay Centered
   nnoremap <silent> j jzz

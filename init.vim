@@ -1,6 +1,18 @@
+"------------------------------------------------------------
+" Common settings
+"------------------------------------------------------------
+" system clipboard yank and put
+" Note: this requires vim to be built with the +clipboard feature flag
+" run :echo has('clipboard') to see if you have it
+" Yank all unnamed into the system buffer
+set clipboard=unnamedplus
+
 " Select your Leader key
 let mapleader = "\<Space>"
 
+"------------------------------------------------------------
+" VSCode settings
+"------------------------------------------------------------
 if exists('g:vscode')
   " VSCode Extensions: A lot of things do not make sense to enable in vscode like syntax highlighters, fzf, and nerdtree
   " https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim 
@@ -10,7 +22,9 @@ if exists('g:vscode')
 
   " <leader>o should open fzf for all files
   nnoremap <leader>o <Cmd>call VSFzfSearch()<CR>
-
+"------------------------------------------------------------
+" Native NVIM settings
+"------------------------------------------------------------
 else 
   let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
   if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -130,12 +144,4 @@ else
   " inoremap <silent> <Esc> <Esc>`^
 endif
 
-"------------------------------------------------------------
-" Common settings
-"------------------------------------------------------------
-" system clipboard yank and put
-" Note: this requires vim to be built with the +clipboard feature flag
-" run :echo has('clipboard') to see if you have it
-" Yank all unnamed into the system buffer
-set clipboard=unnamedplus
 

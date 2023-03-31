@@ -118,12 +118,7 @@ else
   " Ctrl-/ comments out lines with Commentary
   noremap <silent> <C-_> :Commentary<CR>
 
-  " system clipboard yank and put
-  " Note: this requires vim to be built with the +clipboard feature flag
-  " run :echo has('clipboard') to see if you have it
 
-  " Yank all unnamed into the system buffer
-  set clipboard=unnamedplus
 
   " Stay Centered
   nnoremap <silent> j jzz
@@ -134,3 +129,13 @@ else
   " Exit insert mode and go forward one character
   " inoremap <silent> <Esc> <Esc>`^
 endif
+
+"------------------------------------------------------------
+" Common settings
+"------------------------------------------------------------
+" system clipboard yank and put
+" Note: this requires vim to be built with the +clipboard feature flag
+" run :echo has('clipboard') to see if you have it
+" Yank all unnamed into the system buffer
+set clipboard=unnamedplus
+

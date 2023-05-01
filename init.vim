@@ -6,6 +6,15 @@
 " run :echo has('clipboard') to see if you have it
 " Yank all unnamed into the system buffer
 set clipboard=unnamedplus
+" Spellcheck :setlocal spell
+" z= to see recommendations.
+" set spell
+set spelllang=en
+set spellfile=$HOME/.vim/spell/en.utf-8.add
+
+" I really do not like automatically continuing comments to new lines.
+"  it messes up my pastes and I'm usually writing one line comments anyway.
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " Select your Leader key
 let mapleader = "\<Space>"
@@ -25,7 +34,7 @@ if exists('g:vscode')
 "------------------------------------------------------------
 " Native NVIM settings
 "------------------------------------------------------------
-else 
+elseif v:progname == 'nvim'
   let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
   if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -93,18 +102,6 @@ else
 
   " Install Plugins - End 
 
-  "------------------------------------------------------------
-  " Settings
-  "------------------------------------------------------------
-  " Spellcheck :setlocal spell
-  " z= to see recommendations.
-  " set spell
-  set spelllang=en
-  set spellfile=$HOME/.vim/spell/en.utf-8.add
-
-  " I really do not like automatically continuing comments to new lines.
-  "  it messes up my pastes and I'm usually writing one line comments anyway.
-  autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
   "------------------------------------------------------------
   " Mappings
@@ -132,16 +129,34 @@ else
   " Ctrl-/ comments out lines with Commentary
   noremap <silent> <C-_> :Commentary<CR>
 
+  "------------------------------------------------------------
+  " Coc Suggestions Mappings
+  " https://github.com/neoclide/coc.nvim#example-vim-configuration
+  "------------------------------------------------------------
+  " Use tab for trigger completion with characters ahead and navigate
+  " NOTE: There's always complete item selected by default, you may want to enable
+  " no select by `"suggest.noselect": true` in your configuration file
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config
+  inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1) :
+        \ CheckBackspace() ? "\<Tab>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+  " Make <CR> to accept selected completion item or notify coc.nvim to format
+  " <C-g>u breaks current undo, please make your own choice
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-  " Stay Centered
-  nnoremap <silent> j jzz
-  nnoremap <silent> k kzz
-  " Scroll Faster
-  nnoremap <silent> <C-j> 10jzz
-  nnoremap <silent> <C-k> 10kzz
-  " Exit insert mode and go forward one character
-  " inoremap <silent> <Esc> <Esc>`^
+  function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+else
+  " Perhhaps ideavim is running.
+  set visualbell
 endif
 
 

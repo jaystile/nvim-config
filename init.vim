@@ -11,6 +11,7 @@ set clipboard=unnamedplus
 " set spell
 set spelllang=en
 set spellfile=$HOME/.vim/spell/en.utf-8.add
+set nowrapscan
 
 " I really do not like automatically continuing comments to new lines.
 "  it messes up my pastes and I'm usually writing one line comments anyway.
@@ -57,6 +58,9 @@ elseif v:progname == 'nvim'
   let termdebugger="rust-gdb"
   " Open the debugger split vertically instead of horizontally
   let g:termdebug_wide=1
+
+  " Support longer files names when using :Ex to open files
+  let g:netrw_maxfilenamelen=66
 
   " File Commenting
   Plug 'tpope/vim-commentary'
